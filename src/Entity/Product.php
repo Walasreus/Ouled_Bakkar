@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Product
 {
     #[ORM\Id]
@@ -36,10 +37,22 @@ class Product
     #[ORM\ManyToMany(targetEntity: Orders::class)]
     private $orders;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $category;
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue()
+    {
+        $this->updated_at = new \DateTimeImmutable();
+    }
+
     public function __construct()
     {
+        $this->created_at = new \DateTimeImmutable();
         $this->orders = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -138,6 +151,18 @@ class Product
     public function removeOrder(Orders $order): self
     {
         $this->orders->removeElement($order);
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

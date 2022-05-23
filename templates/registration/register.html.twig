@@ -2,13 +2,8 @@
 
 {% block title %}Inscription{% endblock %}
 
+
 {% block content %}
-    <h1>Inscription</h1>
-
-    Formulaire d'Inscription
-{% endblock %}
-
-{% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
@@ -22,12 +17,9 @@
         {{ form_row(registrationForm.zip) }}
         {{ form_row(registrationForm.city) }}
         {{ form_row(registrationForm.country) }}
-        {{ form_row(registrationForm.phone_number) }}
+        {{ form_row(registrationForm.number) }}
         {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.agreeTerms, { label: "Accepter les conditions d'utilisation" }) }}
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}

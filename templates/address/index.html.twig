@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adresse - Ouled Bakkar{% endblock %}
+
+{% block content %}
+    <h1>Adresse</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FullName</th>
+                <th>Company</th>
+                <th>Address</th>
+                <th>Complement</th>
+                <th>Phone</th>
+                <th>City</th>
+                <th>CodePostal</th>
+                <th>Country</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for address in addresses %}
+            <tr>
+                {# {{ dump( addresses ) }} #}
+                <td>{{ address.fullName }}</td>
+                <td>{{ address.company }}</td>
+                <td>{{ address.address }}</td>
+                <td>{{ address.complement }}</td>
+                <td>{{ address.phone }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.codePostal }}</td>
+                <td>{{ address.country }}</td>
+                <td>
+                    <a href="{{ path('app_address_show', {'id': address.id}) }}">show</a>
+                    <a href="{{ path('app_address_edit', {'id': address.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_address_new') }}">Create new</a>
+{% endblock %}

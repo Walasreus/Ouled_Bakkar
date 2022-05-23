@@ -1,0 +1,41 @@
+.navbar-dark .navbar-nav .nav-link {
+    color:#fff !important;
+}
+nav > div > div > div a {
+    color: #fff;
+}
+body{
+    background-color: #9AD0EC;
+}
+.footer-custom {
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    background-color: #dfeaff;
+    /* padding-top: 25px; */
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+.marketing {
+    margin-top: 160px;
+}
+
+.fas.fa-heart:hover {
+    color: #f44336 !important;
+  }
+  
+  .fas.fa-share-alt:hover {
+    color: #0d47a1 !important;
+  }
