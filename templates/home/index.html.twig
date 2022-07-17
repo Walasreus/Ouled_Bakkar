@@ -4,83 +4,40 @@
 
 {% block content %}
 
-      <h2 class="text-center">Nos produits - Ouled Bakkar</h2>
-
-        <!-- Three columns of text below the carousel -->
-        <div class="row">
-            {% for product in products %}
-                
-          
-            <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body d-flex flex-row">
-
-                    <div>
-                      <h5 class="card-title font-weight-bold mb-2">Zoro</h5>
-                    </div>
-                  </div>
-                    <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
-                      <img class="img-fluid w-100" src="{{ asset('assets/image/products/'~ product.image) }}"
-                        alt="Card image cap" />
-                      <a href="#!">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                      </a>
-                    </div>
-                  <div class="card-body">
-                    <p class="card-text collapse" id="collapseContent">
-                    
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <h5>{{ product.name }}</h5>
-                        <span class="product-price">{{ (product.price / 100) |number_format(2, ',', '.') }} €</span>
-                      </div>
-                    </div>
-                  </div>
+        <div class="row produit ">
+          <h2 class="text-center ">Nos produits - Ouled Bakkar</h2>
+            {% for product in products %}        
+           <div class="col-lg-4 ">
+              <div class="card">
+                <div class="imgBox d-flex justify-content-center align-items-center">
+                  <img class=" mouse" src="{{ asset('assets/image/products/'~ product.image) }}"
+                  alt="Card image cap" />
                 </div>
-            </div><!-- /.col-lg-4 -->
-
-            {% endfor %}
+                <div class="contentBox">
+                  <h3>{{product.name}}</h3>
+                  <h2 class="price">  <span>{{ (product.price / 100) |number_format(2, ',', '.') }} €</span></h2>
+                  <a href="#" class="buy">Acheter</a>
+                </div>
+              
+              </div>     
+           </div>   
+          {% endfor %}
         </div><!-- /.row -->
-
-
-        <!-- START THE FEATURETTES -->
-
         <hr class="featurette-divider">
 
-        <h2 class="text-center">Nos articles - Ouled Bakkar</h2>
-
-        <div class="row">
+        <div class="row article">
+          <h2 class="text-center">Nos articles - Ouled Bakkar</h2>
           {% for article in articles %}
-            <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-body d-flex flex-row">
+          <div class="col-lg-4 col-md-12 d-flex flex-column justify-content-start align-items-center bg-white border-3 rounded-3 mt-5">
+            <img src="{{ asset('assets/image/articles/'~ article.image)}}" alt="Image de " ~ {{ article.title}} class="d-flex img-fluid ">
 
-                    <div>
-                      <h5 class="card-title font-weight-bold mb-2">{{ article.title }}</h5>
-                    </div>
-                  </div>
-                    <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
-                      <img src="{{ asset('assets/image/articles/'~ article.image)}}" alt="Image de mon article"
-                    class="img-fluid">
-                      <a href="{{ path('show', {'id': article.id })}}">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                      </a>
-                    </div>
-                  <div class="card-body">
-                    <p class="card-text collapse" id="collapseContent">
-                      {{article.content}} 
-                    </p>
-                    <div class="d-flex justify-content-between">
-                      <div>
-                        <p class="date">Ecrit le {{ article.createdAt|date('d-m-Y') }} à {{ article.createdAt|date('H:i') }}</p>
-                      </div>
-                    </div>
-                    <div> <a href="{{ path('show', {'id': article.id })}}" class="btn btn-primary">Voir plus</a></div>
-                  </div>
-                </div>
-            </div><!-- /.col-lg-4 -->
-          
+            <div class=" d-flex flex-column justify-content-between align-items-center">   
+              <h3 class="text-center mb-2">{{ article.title|upper }}</h3>
+              <p class="text-center"> {{article.content}}</p>
+              <p class="date">Ecrit le <span>{{ article.createdAt|date('d-m-Y') }}</span> à <span>{{ article.createdAt|date('H:i') }}</span></p>
+              <a href="{{ path('show', {'id': article.id })}}" class="btn mb-2">Lire</a>
+            </div>
+          </div>
           {% endfor %}
         </div>
 

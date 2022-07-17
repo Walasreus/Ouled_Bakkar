@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -30,6 +31,7 @@ class ArticleCrudController extends AbstractCrudController
                                     ->setUploadDir('public/assets/image/articles')
                                     //Pour les images de même nom et la regénéartion d'un nouveau nom d'image d'une manière aléartoire avec : randomhash
                                     ->setUploadedFileNamePattern('[randomhash].[extension]'),// la manière de comment on vas encoder nos images
+            BooleanField::new('published'),
             AssociationField::new('user'),
             DateTimeField::new('updated_at')->hideOnForm(),
             DateTimeField::new('created_at')->hideOnForm(),
