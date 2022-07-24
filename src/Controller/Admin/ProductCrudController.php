@@ -29,8 +29,8 @@ class ProductCrudController extends AbstractCrudController
             TextareaField::new('description'),
             AssociationField::new('category'),
             MoneyField::new('price')->setCurrency('EUR'),
-            ImageField::new('image')->setBasePath('/assets/image/products')//le dossier où il cherche nos images
-                                    ->setUploadDir('public/assets/image/products')
+            ImageField::new('image')->setBasePath('/assets/image/products/')//le dossier où il cherche nos images
+                                    ->setUploadDir('public/assets/image/products/')
             //Pour les images de même nom et la regénéartion d'un nouveau nom d'image d'une manière aléartoire avec : randomhash
                                     ->setUploadedFileNamePattern('[randomhash].[extension]'),// la manière de comment on vas encoder nos images,
             DateTimeField::new('created_at')->hideOnForm(),

@@ -16,7 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/compte/admin', name: 'admin')]
     public function index(): Response
     {
         //return parent::index();
@@ -53,8 +53,7 @@ class DashboardController extends AbstractDashboardController
         //yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Articles', 'fas fa-barcode', Article::class);
         yield MenuItem::linkToCrud('Commandes', 'fas fa-shopping', Orders::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-tag', 
-        Product::class);
+        yield MenuItem::linkToCrud('Produits', 'fas fa-tag', Product::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class);
         yield MenuItem::linktoRoute("Retour à l'accueil du site", 'fas fa-home', 'app_home');
