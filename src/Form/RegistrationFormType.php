@@ -78,54 +78,6 @@ class RegistrationFormType extends AbstractType
                     'placeholder'=> 'Merci de saisir votre prénom'
                 ]
             ])
-            ->add('address', TextType::class, [
-                'label'=> "Votre adresse",
-                'constraints' => new Length([
-                    'min' => 2,
-                    'minMessage' => 'Votre adresse doit avoir au mininum {{ limit }} caractères',
-                    'max' => 30,
-                    'maxMessage' => 'Votre adresse ne doit pas dépasser {{ limit }} caractères',
-            ]),
-                'attr'=> [
-                    'placeholder'=> 'Merci de saisir votre adresse'
-                ]
-            ])
-            ->add('zip', TextType::class, [
-                'label'=> "Votre département",
-                'constraints' => new Length([
-                    'min' => 2,
-                    'minMessage' => 'Votre département doit avoir au mininum {{ limit }} caractères',
-                    'max' => 30,
-                    'maxMessage' => 'Votre département ne doit pas dépasser {{ limit }} caractères',
-            ]),
-                'attr'=> [
-                    'placeholder'=> 'Merci de saisir votre département'
-                ]
-            ])
-            ->add('city', TextType::class, [
-                'label'=> "Votre ville",
-                'constraints' => new Length([
-                    'min' => 2,
-                    'minMessage' => 'Votre ville doit avoir au mininum {{ limit }} caractères',
-                    'max' => 30,
-                    'maxMessage' => 'Votre ville ne doit pas dépasser {{ limit }} caractères',
-            ]),
-                'attr'=> [
-                    'placeholder'=> 'Merci de saisir votre ville'
-                ]
-            ])
-            ->add('country', TextType::class, [
-                'label'=> "Votre pays",
-                'constraints' => new Length([
-                    'min' => 2,
-                    'minMessage' => 'Votre pays doit avoir au mininum {{ limit }} caractères',
-                    'max' => 30,
-                    'maxMessage' => 'Votre pays ne doit pas dépasser {{ limit }} caractères',
-            ]),
-                'attr'=> [
-                    'placeholder'=> 'Merci de saisir votre pays'
-                ]
-            ])
             ->add('number', TextType::class, [
                 'label'=> "Votre numéro de téléphone",
                 'constraints' => new Length([
