@@ -34,19 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $firstname;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $address;
-
-    #[ORM\Column(type: 'string', length: 10)]
-    private $zip;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private $city;
-
-    #[ORM\Column(type: 'string', length: 100)]
-    private $country;
-
     #[ORM\Column(type: 'string', length: 40)]
     private $number;
 
@@ -192,42 +179,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getZip(): ?string
-    {
-        return $this->zip;
-    }
-
-    public function setZip(string $zip): self
-    {
-        $this->zip = $zip;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
 
         return $this;
     }
