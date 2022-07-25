@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une adresse - La Tunisienne{% endblock %}
+
+{% block main %}
+    <div class="container form_adresse">
+         
+        <div class="p-5 mb-5 bg-light">
+            <h2 class="display-3 text-center">Gérer mes adresse</h2>
+            <p class="lead text-center mb-3 bg-danger bg-gradient p-3 rounded-3">  Vous ête connecté en tant que {{ app.user.Firstname }} {{ app.user.lastname }}</p>
+            <hr class="my-2">  
+        </div> 
+        {% if address in not null %}
+            
+                <div><a href="{{path('account_address')}}">Retour à mes adresses</a></div>
+          
+        {% endif %}
+       
+        <div class="row text-center">
+            <a href="{{path('app_account')}}" class="btn">Retour à mon compte</a>
+        </div>
+       
+        <div class="message-flash">
+            {% for message in app.flashes('adresse_message') %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismis="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x"></i></span>
+                </button>
+
+            </div>   
+            {% endfor %}
+        </div>
+        {{ form_start(form) }}
+            <div class="row form mt-5">
+                <div class="col-md-12"> {{form_row(form.name)}}</div>
+                <div class="col-md-6"> {{form_row(form.full_name)}}</div>
+                <div class="col-md-6"> {{form_row(form.campany)}}</div>
+                <div class="col-md-6"> {{form_row(form.address)}}</div>
+                <div class="col-md-6"> {{form_row(form.complement)}}</div>
+                <div class="col-md-6"> {{form_row(form.city)}}</div>
+                <div class="col-md-6"> {{form_row(form.country)}}</div>
+                <div class="col-md-6"> {{form_row(form.postal)}}</div>
+                <div class="col-md-6"> {{form_row(form.phone)}}</div>
+            </div>
+        {{ form_end(form) }}
+    
+    </div>
+{% endblock %}

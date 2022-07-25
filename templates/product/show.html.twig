@@ -2,42 +2,89 @@
 
 {% block title %}Product{% endblock %}
 
-{% block content %}
-    <h1>Product</h1>
+{% block main %}
+   <div class="container">
+        <h1>Product</h1>    
+         <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ product.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ product.name }}</td>
+                </tr>
+                <tr>
+                    <th>Slug</th>
+                    <td>{{ product.slug }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td>{{ product.image }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ product.description }}</td>
+                </tr>
+                <tr>
+                    <th>Price</th>
+                    <td>{{ (product.price / 100) |number_format(2, ',', '.') }} €</td>
+                </tr>
+                <tr>
+                    <th>Created_at</th>
+                    <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Updated_at</th>
+                    <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+            </tbody>
+        </table> 
+        {% if app.user %}   
+            {% if product.recette is defined and product.recette is not null  %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updated_at</th>
-                <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <a href="{{ path('app_recette_show', {'slug': product.recette.slug}) }}">{{ product.recette}}</a>
+            {% endif %}                                                    
+                
+        {% endif %}
+        <a href="{{ path('app_products') }}">back to list</a>
+        <a href="{{path('add_to_cart', {'id' : product.id})}}">Ajouter au panier</a>
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+        <div class="row">
+        <h3 class="text-center">Produit similaire</h3>
+        {% for category in product.category %}
+            {% for productRelated in category.products %}
+                {% if product is not same as productRelated %}
+                <div class="col-3">
+                    <div class="heading_s1">
+                    
+                    </div>
+                    <div class="card">
+                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <img src="{{asset('assets/uploads/products/'~  productRelated.image)}}" class="img-fluid"/>
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </a>
+                        </div>
+                        <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#!" class="btn btn-primary">Button</a>
+                        </div>
+                    </div>
+                </div>
+                    
+                {% endif %}
+            
+            {% endfor %}
+        
+        {% endfor %}
 
+        
+        </div>
+    </div>
 {% endblock %}
+{% block footer %}
+    {{parent()}}
+{% endblock  %}

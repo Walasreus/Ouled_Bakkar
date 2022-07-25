@@ -1,43 +1,114 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Orders index{% endblock %}
+{% block title %}Valider ma commande -  Ouled Bakkar{% endblock %}
 
-{% block body %}
-    <h1>Orders index</h1>
+{% block main %}
+<div class="section">
+	<div class="container">
+         {{ form_start(form, {action:path('app_order_recap')}) }} {# pour dire que je soumis mon formulaire dans une url différente (une route différente)   #}
+        <div class="row">
+        	<div class="col-md-6 px-5">
+                <div class="heading_s1">
+                    <h4 class="text-center my-5">Choisissez votre adresse</h4>
+                        <div class="content my-5  border border-danger rounded-3 border-3 p-3 ">
+                           
+                            {# replace : pour remplacer les [br] avec des balise </br> // raw pour analyser et ne pas afficher du html pur#}
+                            {{ form_widget(form.address)  | replace({"[br]" : "</br>"}) | raw  }}
+                           <div class="pt-4"> <a href="{{path('account_address_new')}}" class="btn btn-block mb-3 ">Ajouter une addresse</a></div>
+                        </div>
+                      
+                </div>
+                <div class="heading_s1">
+                    <h4 class="text-center my-5">Choisissez votre transporteur</h4>
+                    <div class="content my-5  border border-danger rounded-3 border-3 p-3 ">
+                        {{ form_widget(form.carrier) | replace({"[br]" : "</br>"}) | raw }}
+                    </div>
+                </div>
+                <div class="heading_s1">
+                    <h4 class="text-center my-5">Ajoutez une information supplémentaire</h4>
+                    <div class="form-group border border-danger rounded-2  mb-0">
+                        {{ form_widget(form.informations) }}
+                    </div>
+                </div>
+          </div>
+          <div class="col-md-6 px-5">
+                <div class="order_review">
+                    <div class="heading_s1">
+                        <h4 class="text-center my-5">Votre commande</h4>
+                    </div>
+                    <div class="order_table my-5">
+                        {# <pre>
+                            {{ dump(cart) }}
+                        </pre> #}
+                      
+                        <table class="table table-hover table-light">
+                            <thead>
+                                <tr class="h-100 d-flex justify-content-around">
+                                    <th class="text-center fst-italic fs-5">Produit</th>
+                                    <th  class="text-center fst-italic fs-5">Prix Totale</th>
+                                </tr>
+                            </thead>
+                            {% set totale = null %}
+                            {% for informations in cart %}
+                            <tbody>
+                                    <tr class="h-100 d-flex justify-content-around align-items-center">
+                                        <td > 
+                                            <div class="row">
+                                                <div class="col"><img src="{{asset('/assets/uploads/products/' ~ informations.product.image )}}" alt="{{ informations.product.name }}" width="80px"></div>
+                                                <div class="col text-start pt-3">x {{informations.quantity}}</div>
+                                            </div>
+                                           
+                                        </td>
+                                        
+                                        <td class=" h-100">
+                                            <div class=" h-100">
+                                                
+                                                {{(informations.quantity * informations.product.price / 100) |number_format(2, ',', '.') }}€
+                                            </div>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                            {% set totale = totale + (informations.quantity * informations.product.price) %}
+                            
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6 bg-light">
+                            <div class="border p-3 p-md-4">
+                                <div class="heading_s1 mb-3">
+                                    <h6 class="text-center">Le Totale du panier</h6>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table ">
+                                        <tbody>
+                                            <tr>
+                                                <th>Nombre de produit</th>
+                                                <td> {{cart|length}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Totale</th>
+                                                <td><strong> {{ (totale / 100) |number_format(2, ',', '.') }}€ </strong></td>
+                                            </tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div  class="d-grid gap-2"><button class="btn btn-block mb-3">Payer</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Total</th>
-                <th>Payed</th>
-                <th>Fail</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.total }}</td>
-                <td>{{ order.payed ? 'Yes' : 'No' }}</td>
-                <td>{{ order.fail ? 'Yes' : 'No' }}</td>
-                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ order.updatedAt ? order.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_orders_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('app_orders_edit', {'id': order.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_orders_new') }}">Create new</a>
 {% endblock %}
+
+{% block footer %}
+    {{parent()}}
+{% endblock  %}

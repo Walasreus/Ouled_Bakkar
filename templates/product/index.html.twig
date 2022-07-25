@@ -1,43 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos produits - Ouled Bakkar{% endblock %}
+{% block title %}Nos produits - Ouled Bakkar {% endblock %}
 
-{% block content %}
-    <h1>Nos produits</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Created_at</th>
-                <th>Updated_at</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.image }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ (product.price / 100) | number_format(2, ',', '.') }} €</td>
-                <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ product.updatedAt ? product.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">Afficher</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">Aucun produit sauvegardé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+{% block main %}
+    <div class="container products">
+        <h2 class="text-center">Notre carte</h2>
+        <div class="row ">
+            {% for product in products %}
+                    <div class="col-md-3 mb-5">
+                        <div class="wsk-cp-product">
+                            <div >
+                                <img src="{{asset('/assets/uploads/products/' ~ product.image )}}" alt="Product" class="img-fluid" />
+                            </div>
+                            <div class="wsk-cp-text">
+                                <div class="category mt-5">
+                                    <span>
+                                        
+                                        {% for category in product.category %}
+                                            <span>|</span>
+                                                {{category.name}}
+                                            <span>|</span>
+                                    
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <div class="title-product">
+                                    <h3>{{ product.name }}</h3>
+                                </div>
+                                <div class="description-prod">
+                                    <p>{{ product.description }}</p>
+                                        {% if app.user %}   
+                                                   
+                                                    
+                                        {% endif %}
+                                </div>
+                                <div class="card-footer">
+                                    <div class="wcf-left"><span class="price">{{ (product.price / 100) |number_format(2, ',', '.') }} €</span></div>
+                                    <div class="wcf-right"><a href="{{path('add_to_cart', {'id' : product.id})}}" class="buy-btn"><i class="bi bi-cart-plus"></i></a></div>
+                                </div>
+                            </div>
+                            <a href="{{ path('app_product_show', {'name': product.name}) }}">Voir le produit</a>
+                        </div>
+                    </div>     
+            {% endfor %}
+            
+        </div>  
+          
+    </div>
 {% endblock %}
+{% block footer %}
+    {{parent()}}
+{% endblock  %}
+
+

@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    
+{% endblock  %}
+{% block main %}
+{# réglere le prblème des doublants #}
+    <div class="container">  
+        {% for product in products %}
+        {# {{dump(product)}} #}
+            {% for category in product.category %} 
+                {# {{dump(category)}} #}
+                {% if category.name is same as(productType) %}            
+                            <div class="container">
+                                <h1>Product</h1>
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Id</th>
+                                            <td>{{ product.id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td>{{ product.name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Slug</th>
+                                            <td>{{ product.slug }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Image</th>
+                                            <td>{{ product.image }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>{{ product.description }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Price</th>
+                                            <td>{{ product.price }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Categorie</th>
+                                            <td> {% for category in product.category %}
+                                                {{category.name}},
+                                                    
+                                                {% endfor %}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>    
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock  %}
+{% block footer %}
+{{ parent() }}
+    
+{% endblock  %}

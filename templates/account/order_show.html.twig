@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande - laTunisienne{% endblock %}
+{# {% block style %}
+     <style >
+          .pricing-box { background-image: url('{{asset("/assets/uploads/products/" ~ imageProduct)}}') !important; }
+     </style> 
+{% endblock %} #}
+{% block main %}
+     <div class="container mes-commandes ">
+          <div class="p-5 mb-5 bg-light">
+               <h2 class="display-3 text-center">Ma commande : {{ order.reference }}</h2>
+               <p class="lead text-center mb-3 bg-danger bg-gradient p-3 rounded-3">  Vous ête connecté en tant que {{ app.user.Firstname }} {{ app.user.lastname }}</p>
+               <hr class="my-2">  
+          </div>   
+          <div class="row">
+               <h5 class="text-center">Commande passé le : {{order.createdAt|date('d/m/y')}} </h5>
+               <h5 class="text-center">Transporteur choisi : {{order.carrierName}}</h5>
+              
+               <div class="table-scroll mt-5" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                    <table class="table table-light mb-0 table-hover table-responsive">
+                         <thead >
+                              <tr class="text-uppercase text-success">
+                                   <th scope="col">Produit</th>
+                                   <th scope="col">Quantité</th>
+                                   <th scope="col">Prix unitaire</th>
+                                   <th scope="col">Total</th>
+                                   
+                              </tr>
+                         </thead>
+                         <tbody>
+                                   {% for product in order.orderDetails %}
+                              <tr>
+                                   <td>{{product.productName}}</td>
+                                   <td>x {{product.quantity}}</td>
+                                   <td>{{((product.productPrice) /100)|number_format(2,',', '.')}} €</td>
+                                   <td>{{((product.total) /100)|number_format(2,',', '.')}} €</td>
+                                   
+                              </tr> 
+                                   {% endfor %}
+                         </tbody>
+                    </table>
+               </div>  
+                     
+          </div>
+          <div class="row me-1 mt-5">
+               <div class="col-md-6">
+               </div>
+               <div class="col-md-6 bg-light">
+                     
+                       <div class="table-responsive mt-4 ">
+                           <table class="table ">
+                               <tbody>
+                                   <tr>
+                                       <th><strong>Sous-total</strong></th>
+                                       <td> {{(order.getTotal /100)|number_format(2,',', '.')}} </td>
+                                   </tr>
+                                   <tr>
+                                       <th><strong>Livraison</strong></th>
+                                       <td> {{ (order.carrierprice / 100) |number_format(2, ',', '.') }}€</td>
+                                   </tr>
+                                   <tr>
+                                        <th><strong>Totale</strong></th>
+                                        <td> {{ ((order.carrierprice + order.getTotal) / 100) |number_format(2, ',', '.') }}€</td>
+                                    </tr>
+                                   
+                               </tbody>
+                           </table>
+                       </div>
+                   
+               </div>
+           </div>
+     </div>    
+{% endblock %}

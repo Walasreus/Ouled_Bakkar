@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier - Ouled Bakkar {% endblock %}
+
+{% block main %}
+
+    <div class="container shop_cart_table">
+        <div class="p-5 mb-5 bg-light">
+            <h2 class="display-3 text-center">Mon panier</h2>
+            <p class="lead text-center mb-3 bg-danger bg-gradient p-3 rounded-3">  Vous ête connecté en tant que {{ app.user.Firstname }} {{ app.user.lastname }}</p>
+            <hr class="my-2">  
+        </div> 
+        {% if cart|length < 0 %}       
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive ">
+                        <table class="table table-light table-hover">
+                            <thead>
+                                <tr class="table-active tab-cart">
+                                    <th colspan="2">Produit</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Totale</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set total = null %}
+                                {% for element in cart %}
+                                <tr>
+                                    <td>
+                                        <a href="{{path('app_product_show', {'name' : element.product.name })}}">
+                                            <img src="{{asset('/assets/uploads/products/' ~ element.product.image )}}" alt="{{ element.product.name }}" width="80px">
+                                        </a>
+                                    </td>
+                                    <td>
+                                    
+                                        <a href="{{path('app_product_show', {'name' : element.product.name })}}">{{element.product.name}}</a>
+                                    </td>
+                                    <td data-title="Price">{{ (element.product.price / 100) |number_format(2, ',', '.') }} €</td>
+                                    <td data-title="Quantity">
+                                        <div class="quantity">
+                                            <a href="{{path('remove_from_cart', {'id' : element.product.id })}}">
+                                                <input type="button" value="-" class="minus">
+                                            </a>
+                                    
+                                            <input type="text" name="quantity" value="{{element.quantity}}" title="Qty" class="qty text-center" size="4">
+
+                                            <a href="{{path('add_to_cart', {'id' : element.product.id })}}">
+                                                <input type="button" value="+" class="plus">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td data-title="Total"> {{(element.quantity * element.product.price / 100) |number_format(2, ',', '.') }}€ </td>
+                                    <td data-title="Remove">
+                                        <a href="{{path('remove_all_to_cart', {'id' : element.product.id})}}">
+                                            <i class="bi bi-bag-x"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                    {% set total = total + (element.quantity * element.product.price) %}
+                                {% endfor %}
+                                
+                            
+                            </tbody>
+                        
+                            <tfoot>
+                                <tr class="table-active tab-cart">
+                                    <th colspan="2">Produit</th>
+                                    <th>Prix</th>
+                                    <th>Quantité</th>
+                                    <th>Totale</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 bg-light">
+                    <div class="border p-3 p-md-4">
+                        <div class="heading_s1 mb-3">
+                            <h6 class="text-center">Le Totale du panier</h6>
+                        </div>
+                        <div class="table-responsive ">
+                            <table class="table ">
+                                <tbody>
+                                    <tr>
+                                        <th>Nombre de produit</th>
+                                        <td> {{cart|length}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Totale</th>
+                                        <td><strong> {{ (total / 100) |number_format(2, ',', '.') }}€ </strong></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="{{path('app_order')}}" class="btn btn-block mb-3">Valider mon Panier</a>
+                        <a href="{{path('remove_my_cart')}}" class="btn btn-block">Supprimer mon Panier</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+        <hr>
+        <p class="text-center"> <b>Votre panier est vide</b> </p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock  %} 

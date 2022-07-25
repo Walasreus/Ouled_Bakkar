@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EmailContactController!{% endblock %}
+
+{% block main %}
+<div class="container-fluid ">
+    <div class=" contact d-flex justify-content-center align-items-center">   
+        <div class=" w-50 d-flex flex-column justify-content-start align-items-center ">
+            <div class=" d-flex flex-column justify-content-start align-items-center mb-5">
+                <div class="d-flex justify-content-center flex-column align-items-center w-100 ">
+                        <h2>Laisser nous un message</h2>
+                        <div class="message-flash">
+                            {% for message in app.flashes('contact_message') %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="close" data-dismis="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="bi bi-x"></i></span>
+                                </button>
+                
+                            </div>
+                                
+                            {% endfor %}
+                        </div>
+                </div>  
+            </div>
+            <div class="form_contact  d-flex justify-content-start align-items-center mt-3">
+                {{ form_start(contactForm) }}
+                <div class="row mx-5">
+                    <div class="col-md-12"> 
+                        {{ form_label(contactForm.firstname, 'Prénom') }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {{ form_widget(contactForm.firstname, {
+                                'attr': {
+                                    'value': app.user.firstname
+                                }
+                            }) }}
+                        {% else %}
+                            {{ form_widget(contactForm.firstname) }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12"> 
+                        {{ form_label(contactForm.lastname, 'Noml') }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {{ form_widget(contactForm.lastname, {
+                                'attr': {
+                                    'value': app.user.lastname
+                                }
+                            }) }}
+                        {% else %}
+                            {{ form_widget(contactForm.firstname) }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12"> 
+                        {{ form_label(contactForm.email, 'Email') }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {{ form_widget(contactForm.email, {
+                                'attr': {
+                                    'value': app.user.email
+                                }
+                            }) }}
+                        {% else %}
+                            {{ form_widget(contactForm.firstname) }}
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12">
+                        {{form_row(contactForm.subject, {
+                            
+                             'label' : 'Sujet'
+                        })}}
+                    </div>
+                    <div class="col-md-12"> 
+                        {{form_row(contactForm.message,{
+
+                            'label' : 'Votre message'
+                        })}}
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-center">
+                   <input type="submit" value="Envoyer" class="contact_submit my-5">
+                </div>
+                {{ form_end(contactForm) }}
+            </div> 
+         </div>  
+     </div> 
+</div>
+
+{% endblock %}

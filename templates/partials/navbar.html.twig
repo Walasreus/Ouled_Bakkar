@@ -1,0 +1,132 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white rounded-nav" >
+    <div class="container-fluid">
+        <a href="{{path('home')}}" class=" ms-2"><img src="{{asset('/assets/img/logo/LOGO3.png')}}" height="70" alt="" loading="lazy" title="La Tunisienne"/></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse mt-2" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center     ">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{path('home')}}">Accueil</a>
+          </li>
+ 
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{path('email_contact')}}">Contact</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav me-3">
+            {% if app.user %}
+            <li class="nav-item">
+                <a href="{{path('app_deconnexion')}}" class="nav-link action-compte">Déconnexion</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{path('app_account')}}" class="nav-link action-compte">Mon compte</a> 
+            </li>
+            {% if is_granted("ROLE_ADMIN") %}
+            <li class="nav-item">
+                <a href="{{path('admin')}}" class="nav-link action-compte">Admin</a> 
+            </li>
+            {% endif %}
+            
+            {% else %}
+                <li class="nav-item">
+                <a href="{{path('register')}}" class="nav-link action-compte">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{path('app_connexion')}}" class="nav-link action-compte">Connexion</a>
+                </li>
+            {% endif %}
+
+            {% if app.session.get('cart') is not empty %}
+                {% set quantity = 0 %}
+                {% for element in app.session.get('cartData') %}
+                    {% set quantity = quantity + element.quantity %}
+                {% endfor %}
+                <li class="nav-item dropdown cart_dropdown">
+
+                    <a href="{{path('app_cart')}}" class="nav-link cart_trigger" data-toggle="dropdown">
+
+                        <i class="bi bi-cart-check-fill"></i></i><span class="cart_count">{{ quantity}}</span>
+
+                    </a>
+                    <div class="cart_box dropdown-menu">
+                        <ul class="cart_header">
+                            {% set total = null %}
+                            {% for element in app.session.get('cartData') %}
+                                {% set total = total + (element.quantity * element.product.price) %}
+                                <li >
+                                    <a href="{{path('remove_from_cart', {'id' : element.product.id})}}" class="float-end">
+                                        <i class="bi bi-x"></i>
+                                    </a>
+                                    <div class="d-flex justify-content-around">
+                                        <a href="#">
+                                            <img src="{{asset('/assets/uploads/products/' ~ element.product.image )}}" alt="{{element.product.name}}" class="img-fluid">
+                                           
+                                        </a>
+                                       
+                                        <h5 class="text-center mb-3">{{element.product.name}}</h5>
+                                    </div>
+                                    <div>
+                                        <div class="cart-list">
+                                            <table class="table">
+                                              <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Quantité :
+                                                        </th>
+                                                        <td>
+                                                            {{element.quantity}}
+                                                        </td>
+                                                    </tr>
+                                              </thead>
+                                               <tbody>
+                                                    <tr>
+                                                        <th>
+                                                            Prix :
+                                                        </th>
+                                                        <td>
+                                                            {{(element.quantity * element.product.price / 100) |number_format(2, ',', '.') }}€
+                                                        </td>
+                                                    </tr>
+                                               </tbody>
+                                            </table>
+                                      </div>
+                                        
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="cart_footer d-flex flex-column justify-content-center align-items-center">
+                            <div class="cart_total ">
+                                <p class="float-start">
+                                    <strong>Totale :</strong> 
+                                </p>
+                               <p class="float-end"> 
+                                   <span>{{ (total / 100) |number_format(2, ',', '.') }}€</span> 
+                                </p>
+                            </div>
+                            <div class="cart_buttons d-flex flex-column  align-items-center">
+                                <a href="{{path('app_cart')}}" class="btn view-cart">Mon panier</a>
+                                <a href="{{path('app_order')}}" class="btn  checkout">Payer</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{{path('app_cart')}}"><i class="bi bi-cart2"></i></a>
+                </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div id="progress"></div>
+
+
+{# <pre>
+{{ dump(app.session.get('cart'))}}
+</pre> #}
+
+
+

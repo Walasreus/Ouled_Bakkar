@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes - laTunisienne{% endblock %}
+
+{% block main %}
+
+   {# {% if app.user.isVerified is same as (1)  %} #}
+     <div class="container-fluid mes-commandes w-75 ">
+          
+          <div class="p-5 mb-5 bg-light">
+                    <h2 class="display-3 text-center">Mes commandes</h2>
+                    <p class="lead text-center mb-3 bg-danger bg-gradient p-3 rounded-3">  Vous ête connecté en tant que {{ app.user.Firstname }} {{ app.user.lastname }}</p>
+                    <hr class="my-2">  
+          </div>   
+       
+         <div class="row">
+               {% if ordersSuccess|length == 0 and ordersFailed|length == 0 %}
+               
+               <h3 class="text-center bg-warning bg-gradientmt-5">Vous n'avez pas encore passé de commande sur le site La Tunisienne </h3>
+
+               {% endif %}
+              <div class="col-12">
+                    {% if ordersSuccess|length != 0 %}
+                    <h3 class="mt-5 text-center">Mes commandes payées</h3>
+                    <div class="table-scroll mt-5" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                         <table class="table table-light mb-0 table-hover table-responsive">
+                              <thead >
+                                   <tr class="text-uppercase text-success fw-bold">
+                                        <th scope="col">Référence</th>
+                                        <th scope="col">Passée le</th>
+                                        <th scope="col">Produit(s)</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col"></th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                              {% for info in ordersSuccess %}
+                                   <tr>
+                                        <td>{{info.reference}}</td>
+                                        <td>{{info.createdAt|date('d/m/y')}}</td>
+                                        <td>{{info.orderDetails|length}}</td>
+                                        <td>{{((info.carrierPrice + info.getTotal) /100)|number_format(2,',', '.')}} €</td>
+                                        <td class="text-right"><a href="{{path('account_orders_show', {'reference' : info.reference })}}">Voir</a></td>
+                                   </tr> 
+                              {% endfor %}
+                              </tbody>
+                         </table>
+                    </div> 
+                    {% endif %}
+              </div>
+              <hr class="mt-5">
+              {% if ordersFailed|length != 0 %}
+              <div class="col-12">
+                    <h3 class="mt-5 text-center">Mes commandes annulées</h3>
+                         <div class=" table-scroll mt-5" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                              <table class="table table-dark mb-0 table-hover table-responsive">
+                                   <thead >
+                                        <tr class="text-uppercase text-success">
+                                             <th scope="col">Référence</th>
+                                             <th scope="col">Passée le</th>
+                                             <th scope="col">Produit(s)</th>
+                                             <th scope="col">Total</th>
+                                             <th scope="col"></th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                   {% for info in ordersFailed %}
+                                        <tr>
+                                             <td>{{info.reference}}</td>
+                                             <td>{{info.createdAt|date('d/m/y')}}</td>
+                                             <td>{{info.orderDetails|length}}</td>
+                                             <td>{{((info.carrierPrice + info.getTotal) /100)|number_format(2,',', '.')}} €</td>
+                                             <td class="text-right"><a href="{{path('account_orders_show', {'reference' : info.reference })}}">Voir</a></td>
+                                        </tr> 
+                                   {% endfor %}
+                                   </tbody>
+                              </table>
+                         </div>
+                         
+                  
+                    {% endif %}
+              </div>
+               
+         </div>
+     </div>
+  
+    
+{% endblock %}
