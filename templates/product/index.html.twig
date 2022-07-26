@@ -36,10 +36,10 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="wcf-left"><span class="price">{{ (product.price / 100) |number_format(2, ',', '.') }} €</span></div>
-                                    <div class="wcf-right"><a href="{{path('add_to_cart', {'id' : product.id})}}" class="buy-btn"><i class="bi bi-cart-plus"></i></a></div>
+                                    <div class="wcf-right"><a href="" class="buy-btn"><i class="bi bi-cart-plus"></i></a></div>
                                 </div>
                             </div>
-                            <a href="{{ path('app_product_show', {'name': product.name}) }}">Voir le produit</a>
+                            <a href="">Voir le produit</a>
                         </div>
                     </div>     
             {% endfor %}

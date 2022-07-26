@@ -51,13 +51,13 @@
                   <a class="nav-link" href="#">À propos</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Actualité</a>
+                  <a class="nav-link" href="{{ path('app_register') }}">Devenez bénévole</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ path('app_product_index')}}">Nos produits</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Faire un don</a>
+                  <a class="nav-link" href="{{ path('app_orders_index')}}">Faire un don</a>'
                 </li>
               </ul>
               <div class="d-flex">
@@ -98,26 +98,19 @@
             <div class="carousel-inner">
               <!-- Single item -->
               <div class="carousel-item active">
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                <div class="mask" style="background: linear-gradient(
+                        45deg,
+                        rgba(29, 236, 197, 0.7),
+                        rgba(91, 14, 214, 0.7) 100%
+                      );">
                   <div class="d-flex justify-content-center align-items-center h-100">
                     <div class="text-white text-center">
-                      <h1 class="mb-3">Bienvenue</h1>
+                      <h1 class="mb-3">Agissez</h1>
                       <h5 class="mb-4">Association caritative Ouled Bakkar</h5>
                       {# <a class="btn btn-outline-light btn-lg m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A" #}
                         {# role="button" rel="nofollow" target="_blank">azzee</a>
                       <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/"
                         target="_blank" role="button">Roronoa</a> #}
-                    </div>
-                  </div>
-                </div>
-              </div>
-  
-              <!-- Single item -->
-              <div class="carousel-item">
-                <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">
-                  <div class="d-flex justify-content-center align-items-center h-100">
-                    <div class="text-white text-center">
-                      <h2>You can place here any content</h2>
                     </div>
                   </div>
                 </div>
@@ -134,9 +127,9 @@
                     ">
                   <div class="d-flex justify-content-center align-items-center h-100">
                     <div class="text-white text-center">
-                      <h2>And cover it with any mask</h2>
+                      <h2>Devenez bénévole</h2>
                       <a class="btn btn-outline-light btn-lg m-2"
-                        href="https://mdbootstrap.com/docs/standard/content-styles/masks/" target="_blank" role="button">Learn about masks</a>
+                        href="{{ path('app_register') }}" target="_blank" role="button">En savoir plus</a>
                     </div>
                   </div>
                 </div>
