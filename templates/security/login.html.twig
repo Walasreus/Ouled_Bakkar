@@ -2,7 +2,7 @@
 
 {% block title %}Connexion!{% endblock %}
 
-{% block main %}
+{% block content %}
     <div class="container connexion">
         <div class="block-small">
             <form method="post">
@@ -27,7 +27,7 @@
                 <button class="btn btn-primary " type="submit">
                     Se connecter
                 </button >
-                <div class="form-note text-center">Vous n'avez pas de compte <a href="{{path('register')}}">Inscrivez-vous</a></div>
+                <div class="form-note text-center">Vous n'avez pas de compte <a href="{{path('app_register')}}">Inscrivez-vous</a></div>
                 
                 <div class="form-note text-center"> <a href="{{path('app_forgot_password_request')}}">Mot de passe oublié
         

@@ -3,7 +3,7 @@
 {% block title %}Inscription{% endblock %}
     
 
-{% block main %}
+{% block content %}
     <div class="container">
         <div class="mt-5">
             {% for flash_error in app.flashes('verify_email_error') %}
@@ -28,7 +28,7 @@
                 {# <button type="submit" class="btn">Register</button> #}
                 {# {{ form_row(registrationForm.agreeTerms) }} #}
             {{ form_end(registrationForm) }}
-            <a href="{{path('cgu_conditions')}}">Lire les condition générale d'utilisation</a>
+            <a href="{{path('app_cgu')}}">Lire les condition générale d'utilisation</a>
         </div>
     </div>
 {% endblock %}
